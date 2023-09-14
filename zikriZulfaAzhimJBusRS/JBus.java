@@ -28,13 +28,14 @@ public class JBus{
   }
   
   public static int getDiscountedPrice(int price,float discountPercentage){
-      int hargaSetelahDiskon;
+      float hargaSetelahDiskonTemp;
       if (discountPercentage >= 100){
           return 0;
       }
       else {
-          hargaSetelahDiskon = price - ((int) discountPercentage * price / 100);
-          return hargaSetelahDiskon;
+          hargaSetelahDiskonTemp = price - (discountPercentage * price / 100);
+          int hargaSetelahDiskonFinal = (int) hargaSetelahDiskonTemp;
+          return hargaSetelahDiskonFinal;
       }
   }
   

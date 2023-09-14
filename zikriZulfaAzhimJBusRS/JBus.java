@@ -13,7 +13,7 @@ public class JBus{
      return true;
     }
     
-  public static float getDiscountpercentage(int beforeDiscount, int afterDiscount){
+  public static float getDiscountPercentage(int beforeDiscount, int afterDiscount){
       float diskon;
       if (beforeDiscount < afterDiscount){
           return 0.0f;
@@ -33,15 +33,16 @@ public class JBus{
           return 0;
       }
       else {
-          hargaSetelahDiskon = price - ((int) discountPercentage*price);
+          hargaSetelahDiskon = price - ((int) discountPercentage * price / 100);
           return hargaSetelahDiskon;
       }
   }
   
   public static int getOriginalPrice(int discountedPrice, float discountPercentage){
-      int hargaAwal;
-      hargaAwal = 100 * (discountedPrice / (100 - (int) discountPercentage));
-      return hargaAwal;
+      float hargaAwal1;
+      hargaAwal1 = discountedPrice * 100 / (100 - (discountPercentage));
+      int hargaAwal2 = (int) hargaAwal1;
+      return hargaAwal2;
   }
   
   public static float getAdminFeePercentage(){

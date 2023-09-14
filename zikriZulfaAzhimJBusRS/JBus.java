@@ -39,10 +39,10 @@ public class JBus{
   }
   
   public static int getOriginalPrice(int discountedPrice, float discountPercentage){
-      float hargaAwal1;
-      hargaAwal1 = discountedPrice * 100 / (100 - (discountPercentage));
-      int hargaAwal2 = (int) hargaAwal1;
-      return hargaAwal2;
+      float hargaAwalTemp;
+      hargaAwalTemp = discountedPrice * 100 / (100 - (discountPercentage));
+      int hargaAwalFinal = (int) hargaAwalTemp;
+      return hargaAwalFinal;
   }
   
   public static float getAdminFeePercentage(){

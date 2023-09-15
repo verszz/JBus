@@ -24,7 +24,7 @@ public class Price{
 		this.discount = 0;
 	}
 	
-	public double getDiscountedPrice(){
+	private double getDiscountedPrice(){
             	
                 if(this.discount >= 100.0){
             	    return 0;
@@ -35,7 +35,7 @@ public class Price{
                 }
             }
             
-        public double getRebatedPrice(){
+        private double getRebatedPrice(){
 
                      if(this.rebate > this.price){
                          return 0;

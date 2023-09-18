@@ -2,12 +2,6 @@
 comment0.target=Price
 comment1.params=price\ rebate
 comment1.target=Price(double,\ double)
-comment2.params=price\ discount
-comment2.target=Price(double,\ int)
-comment3.params=price
-comment3.target=Price(double)
-comment4.params=
-comment4.target=double\ getDiscountedPrice()
-comment5.params=
-comment5.target=double\ getRebatedPrice()
-numComments=6
+comment2.params=price
+comment2.target=Price(double)
+numComments=3

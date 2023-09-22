@@ -1,7 +1,7 @@
 package zikriZulfaAzhimJBusRS;
 
 
-public class Voucher
+public class Voucher extends Serializable
 {   
     public String name;
     private boolean used;
@@ -10,7 +10,8 @@ public class Voucher
     public int code;
     public Type type;
     
-    Voucher(String name, int code, Type type, double minimum, double cut){
+    public Voucher(int id, String name, int code, Type type, double minimum, double cut){
+        super(id);
         this.name = name;
         this.code = code;
         this.type = type;

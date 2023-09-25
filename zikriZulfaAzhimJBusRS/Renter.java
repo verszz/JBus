@@ -19,7 +19,6 @@ public class Renter extends Serializable
         this.phoneNumber = 0;
     }
     
-    
     public Renter(int id, String companyName, String address){
         super(id);
         this.companyName = companyName;

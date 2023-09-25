@@ -64,11 +64,11 @@ public class JBus{
       
   }
   
-  public static Bus createBus(){
-      Price price = new Price(750000, 5);
-      Bus bus = new Bus(1, "Netlab Bus", Facility.LUNCH, price, 25);
-      return bus;
-  }
+  //public static Bus createBus(){
+  //    Price price = new Price(750000, 5);
+  //    Bus bus = new Bus(1, "Netlab Bus", Facility.LUNCH, price, 25);
+  //    return bus;
+  //}
   
     public static void main(String[] args) {
     //Bus testBus = createBus();
@@ -78,12 +78,24 @@ public class JBus{
     //System.out.println(testBus.price.price);
     //System.out.println(testBus.capacity);
     
-    Payment testPayment = new Payment(1, 1, 1, "A", 1, "A", "A");
-    Invoice testInvoice = new Invoice(2,2,2, "B");
-    Station testStation = new Station(3, "C", City.DEPOK);
-    System.out.println(testPayment.print());
-    System.out.println(testInvoice.print());
-    System.out.println(testStation.print());
+    //Payment testPayment = new Payment(1, 1, 1, "A", 1, "A", "A");
+    //Invoice testInvoice = new Invoice(2,2,2, "B");
+    //Station testStation = new Station(3, "C", City.DEPOK);
+    //System.out.println(testPayment.print());
+    //System.out.println(testInvoice.print());
+    //System.out.println(testStation.print());
+    
+    Review testReview = new Review(1, "23 August 2023", "Bad Quality");
+    Price testPrice = new Price (100000, 20000);
+    Station testDeparture = new Station (2, "Depok Terminal", City.DEPOK, "Jl. Margonda Raya");
+    Station testArrival = new Station (3, "Halte UI", City.JAKARTA, "Universitas Indonesia");
+    Bus testBus = new Bus (1, "Busway", Facility.AC, testPrice, 50, BusType.REGULER, City.DEPOK, testDeparture, testArrival); Account testAccount = new Account(1, "Bob", "bob@gmail.com", "bob");
+    Rating testRating = new Rating();
+    System.out.println(testReview+"\n");
+    System.out.println(testBus+"\n");
+    System.out.println(testAccount+"\n");
+    System.out.println(testPrice+"\n");
+    System.out.println(testRating+"\n");
   }
     
 }

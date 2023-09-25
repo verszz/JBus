@@ -19,6 +19,8 @@ public class Price{
         
     }
     
-   
+    public String toString(){
+        return "\nPrice: "+this.price+"\nRebate: "+this.rebate;
+    }
     }
 

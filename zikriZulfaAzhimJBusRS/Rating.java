@@ -34,4 +34,8 @@ package zikriZulfaAzhimJBusRS;
         public long getTotal(){
             return this.total;
         }
+    
+    public String toString(){
+        return "Count: "+this.count+"\nTotal: "+this.total;
+    }
 }

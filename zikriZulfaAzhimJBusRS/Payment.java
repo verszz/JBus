@@ -25,7 +25,7 @@ public class Payment extends Invoice
         this.departureDate = departureDate;
         this.busSeat = busSeat;
     }
-    public String print(){
+    public String toString(){
         return "BusId: " + this.busId + "\nDepartureDate: " + this.departureDate + "\nBusSeat: " + this.busSeat;
     }
     public int getBusId(){

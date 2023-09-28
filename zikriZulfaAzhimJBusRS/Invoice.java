@@ -26,16 +26,16 @@ public class Invoice extends Serializable
         this.buyerId = buyerId;
         this.renterId = renterId;
         this.time = time;
-        this.rating = rating.NONE;
-        this.status = status.WAITING;
+        this.rating = BusRating.NONE;
+        this.status = PaymentStatus.WAITING;
     }
     public Invoice(int id, Account buyer, Renter renter, String time){
         super(id);
         this.time = time;
         this.buyerId = buyer.id;
         this.renterId = renter.id;
-        this.rating = rating.NONE;
-        this.status = status.WAITING;
+        this.rating = BusRating.NONE;
+        this.status = PaymentStatus.WAITING;
     }
     public String toString(){
         return "BuyerId: " + this.buyerId + "\nRenterId: " + this.renterId + "\nTime: " + this.time;

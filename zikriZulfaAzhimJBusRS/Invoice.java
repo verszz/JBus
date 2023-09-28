@@ -21,19 +21,21 @@ public class Invoice extends Serializable
     public enum PaymentStatus{
         FAILED, WAITING, SUCCESS;
     }
-    public Invoice(int id, int buyerId, int renterId, String time){
+    protected Invoice(int id, int buyerId, int renterId, String time){
         super(id);
         this.buyerId = buyerId;
         this.renterId = renterId;
         this.time = time;
-        this.rating = BusRating.NONE;
-        this.status = PaymentStatus.WAITING;
+        this.rating = rating.NONE;
+        this.status = status.WAITING;
     }
     public Invoice(int id, Account buyer, Renter renter, String time){
         super(id);
         this.time = time;
         this.buyerId = buyer.id;
         this.renterId = renter.id;
+        this.rating = rating.NONE;
+        this.status = status.WAITING;
     }
     public String toString(){
         return "BuyerId: " + this.buyerId + "\nRenterId: " + this.renterId + "\nTime: " + this.time;

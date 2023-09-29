@@ -1,7 +1,7 @@
 package zikriZulfaAzhimJBusRS;
 
 
-public class Voucher extends Serializable
+public class Voucher extends Serializable implements FileParser
 {   
     public String name;
     private boolean used;
@@ -55,5 +55,15 @@ public class Voucher extends Serializable
        else{
            return price.price;
        }
+    }
+    
+    @Override
+    public boolean read(String content) {
+        return false;
+    }
+
+    @Override
+    public Object write() {
+        return null;
     }
 }

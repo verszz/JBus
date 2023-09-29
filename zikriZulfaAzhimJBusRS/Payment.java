@@ -1,5 +1,6 @@
 package zikriZulfaAzhimJBusRS;
-
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 /**
  * Write a description of class Payment here.
@@ -10,19 +11,21 @@ package zikriZulfaAzhimJBusRS;
 public class Payment extends Invoice
 {
     private int busId;
-    public String departureDate;
+    public Calendar departureDate;
     public String busSeat;
     
-    public Payment(int id, int buyerId, int renterId, String time, int busId, String departureDate, String busSeat){
-        super(id, buyerId, renterId, time);
+    public Payment(int id, int buyerId, int renterId, int busId, String busSeat){
+        super(id, buyerId, renterId);
         this.busId = busId;
-        this.departureDate = departureDate;
         this.busSeat = busSeat;
+        this.departureDate = Calendar.getInstance();
+        this.departureDate.add(Calendar.DAY_OF_MONTH, 2);
     }
-    public Payment(int id, Account buyer, Renter renter, String time, int busId, String departureDate, String busSeat){
-        super(id, buyer, renter, time);
+    public Payment(int id, Account buyer, Renter renter, int busId, String busSeat){
+        super(id, buyer, renter);
         this.busId = busId;
-        this.departureDate = departureDate;
+        this.departureDate = Calendar.getInstance();
+        this.departureDate.add(Calendar.DAY_OF_MONTH, 2);
         this.busSeat = busSeat;
     }
     public String toString(){
@@ -30,5 +33,13 @@ public class Payment extends Invoice
     }
     public int getBusId(){
         return this.busId;
+    }
+    public String getDepartureInfo(){
+        return "BusId: " + this.busId + "\nDeparture Date: " + this.getTime() + "\nBus Seat: " + this.busSeat;
+    }
+    public String getTime(){
+        SimpleDateFormat SDFormat = new SimpleDateFormat("'MMMM dd, yyyy HH:mm:ss");
+        String curr_date = SDFormat.format(departureDate.getTime());
+        return curr_date;
     }
 }

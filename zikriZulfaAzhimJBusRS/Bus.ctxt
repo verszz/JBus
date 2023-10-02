@@ -5,11 +5,11 @@ comment1.params=id\ name\ facility\ price\ capacity\ busType\ city\ departure\ a
 comment1.target=Bus(int,\ java.lang.String,\ Facility,\ Price,\ int,\ BusType,\ City,\ Station,\ Station)
 comment2.params=
 comment2.target=java.lang.String\ toString()
-comment3.params=calendar
-comment3.target=void\ addSchedule(java.util.Calendar)
+comment3.params=calendar\ capacity
+comment3.target=void\ addSchedule(java.sql.Timestamp,\ int)
 comment4.params=content
 comment4.target=boolean\ read(java.lang.String)
-comment4.text=public\ void\ printSchedule(Schedule\ schedule)\ {\r\n\ \ \ \ \ \ \ \ System.out.println("Departure\ date\:\ "\ +\ schedule.departureSchedule);\r\n\ \ \ \ \ \ \ \ System.out.println("Seat\ availability\ table\:");\r\n\ \ \ \ \ \ \ \ for(int\ i\ \=\ 0;\ i\ <\=\ schedule.seatAvailability.length;\ i++){\r\n\ \ \ \ \ \ \ \ \ \ \ \ System.out.println(Schedule.seatAvailability[i]);\r\n\ \ \ \ \ \ \ \ }\r\n\ \ \ \ \ \ \ \ \r\n}
+comment4.text=public\ void\ printSchedule(Schedule\ schedule){\r\n\ \ \ \ \ \ \ \ SimpleDateFormat\ SDFormat\ \=\ new\ SimpleDateFormat("MMMM\ dd,\ yyyy\ HH\:mm\:ss");\r\n\ \ \ \ \ \ \ \ String\ curr_date\ \=\ SDFormat.format(schedule.departureSchedule.getTime());\r\n\ \ \ \ \ \ \ \ System.out.println("Departure\ date\:\ "\ +\ curr_date);\r\n\ \ \ \ \ \ \ \ System.out.println("Seat\ availability\ table\:");\r\n\ \ \ \ \ \ \ \ for(String\ seat\:\ schedule.seatAvailability.keySet()){\r\n\ \ \ \ \ \ \ \ \ \ \ \ System.out.println(seat\ +\ "\:"\ +\ schedule.seatAvailability.get(seat)+"\\n");\r\n\ \ \ \ \ \ \ \ }\r\n}
 comment5.params=
 comment5.target=java.lang.Object\ write()
 numComments=6

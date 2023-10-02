@@ -2,7 +2,8 @@ package zikriZulfaAzhimJBusRS;
 import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.text.SimpleDateFormat;
+import java.sql.Timestamp;
 
 /**
  * Write a description of class Bus here.
@@ -40,18 +41,19 @@ public class Bus extends Serializable implements FileParser
         +this.capacity+"\nBus Type: "+this.busType+"\nCity: "+this.city+"\nDeparture: "+this.departure+"\nArrival: "+this.arrival;
     }
     
-    public void addSchedule(Calendar calendar){
-        Schedule schedule = new Schedule(calendar, this.capacity);
-        this.schedules.add(schedule);
+    public void addSchedule(Timestamp calendar, int capacity){
+        Schedule schedule = new Schedule(calendar, capacity);
+        schedules.add(schedule);
     }
     
-    /*public void printSchedule(Schedule schedule) {
-        System.out.println("Departure date: " + schedule.departureSchedule);
+    /*public void printSchedule(Schedule schedule){
+        SimpleDateFormat SDFormat = new SimpleDateFormat("MMMM dd, yyyy HH:mm:ss");
+        String curr_date = SDFormat.format(schedule.departureSchedule.getTime());
+        System.out.println("Departure date: " + curr_date);
         System.out.println("Seat availability table:");
-        for(int i = 0; i <= schedule.seatAvailability.length; i++){
-            System.out.println(Schedule.seatAvailability[i]);
+        for(String seat: schedule.seatAvailability.keySet()){
+            System.out.println(seat + ":" + schedule.seatAvailability.get(seat)+"\n");
         }
-        
     }*/
     
     @Override

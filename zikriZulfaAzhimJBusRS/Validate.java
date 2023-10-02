@@ -10,22 +10,17 @@ import java.util.ArrayList;
  */
 public class Validate
 {
-    public Validate()
-    {
-        
-    }
-
     public static ArrayList filter (Price[] list, int value, boolean less){
-        ArrayList<Price> filteredList = new ArrayList<Price>();
+        ArrayList<Double> filteredList = new ArrayList<Double>();
         for(Price price : list){
             if(less){
                 if(price.price <= value){
-                    filteredList.add(price);
+                    filteredList.add(price.price);
                 }
             }
             else{
                 if(price.price > value){
-                    filteredList.add(price);
+                    filteredList.add(price.price);
                 }
             }
         }

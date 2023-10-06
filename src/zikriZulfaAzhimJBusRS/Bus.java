@@ -1,4 +1,5 @@
 package zikriZulfaAzhimJBusRS;
+
 import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +12,7 @@ import java.sql.Timestamp;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Bus extends Serializable implements FileParser
-{   
+public class Bus extends Serializable implements FileParser {
     public int capacity;
     public Facility facility;
     public String name;
@@ -22,9 +22,9 @@ public class Bus extends Serializable implements FileParser
     public Station departure;
     public Station arrival;
     public List<Schedule> schedules;
-    
-    public Bus(int id, String name, Facility facility, Price price, int capacity, BusType busType, City city, Station departure, Station arrival){
-        super(id);
+
+    public Bus(int id, String name, Facility facility, Price price, int capacity, BusType busType, City city, Station departure, Station arrival) {
+        super();
         this.name = name;
         this.facility = facility;
         this.price = price;
@@ -35,13 +35,13 @@ public class Bus extends Serializable implements FileParser
         this.arrival = arrival;
         this.schedules = new ArrayList<Schedule>();
     }
-    
-    public String toString(){
-        return "Name: "+this.name+"\nFacility: "+this.facility+"\nPrice: "+this.price+"\nCapacity: "
-        +this.capacity+"\nBus Type: "+this.busType+"\nCity: "+this.city+"\nDeparture: "+this.departure+"\nArrival: "+this.arrival;
+
+    public String toString() {
+        return "Name: " + this.name + "\nFacility: " + this.facility + "\nPrice: " + this.price + "\nCapacity: "
+                + this.capacity + "\nBus Type: " + this.busType + "\nCity: " + this.city + "\nDeparture: " + this.departure + "\nArrival: " + this.arrival;
     }
-    
-    public void addSchedule(Timestamp calendar, int capacity){
+
+    public void addSchedule(Timestamp calendar, int capacity) {
         Schedule schedule = new Schedule(calendar, capacity);
         schedules.add(schedule);
     }
@@ -55,7 +55,7 @@ public class Bus extends Serializable implements FileParser
             System.out.println(seat + ":" + schedule.seatAvailability.get(seat)+"\n");
         }
     }*/
-    
+
     @Override
     public boolean read(String content) {
         return false;

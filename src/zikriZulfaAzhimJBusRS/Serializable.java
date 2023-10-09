@@ -17,7 +17,7 @@ public class Serializable implements Comparable<Serializable> {
 
         Class<? extends Serializable> kelas = this.getClass();
 
-        int nextId = mapCounter.getOrDefault(kelas, 0) + 1;
+        int nextId = mapCounter.getOrDefault(kelas, -1) + 1;
         mapCounter.put(kelas, nextId);
 
         this.id = nextId;

@@ -1,5 +1,6 @@
 package zikriZulfaAzhimJBusRS;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 import java.util.LinkedHashMap;
 import java.sql.Timestamp;
@@ -33,10 +34,25 @@ public class Schedule
         return seatAvailability.get(seat) != null && seatAvailability.get(seat);
     }
 
+    public boolean isSeatAvailable(List<String> seats) {
+        for(String seat : seats){
+            if(seatAvailability.get(seat)!=null && seatAvailability.get(seat)){
+                return true;
+            }
+        }
+        return false;
+    }
     public void bookSeat(String seat) {
         seatAvailability.put(seat, false);
     }
-    
+
+    public void bookSeat(List<String> seats) {
+        for(String seat : seats){
+            if(seatAvailability.containsKey(seat)){
+                seatAvailability.put(seat, false);
+            }
+        }
+    }
     public void printSchedule() {
     SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM d, yyyy HH:mm:ss");
     String formattedDepartureSchedule = dateFormat.format(this.departureSchedule.getTime());
@@ -56,5 +72,17 @@ public class Schedule
             currentSeat ++;
     }
         System.out.println("\n");
+    }
+
+    @Override
+    public String toString() {
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+        String formattedDepartureSchedule = date.format(this.departureSchedule.getTime());
+
+        int totalSeats = seatAvailability.size();
+        int occupiedSeats = (int) seatAvailability.values().stream().filter(available -> !available).count();
+
+        return "Schedule: " + formattedDepartureSchedule +
+                "\nOccupied: " + occupiedSeats + "/" + totalSeats;
     }
 }

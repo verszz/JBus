@@ -41,8 +41,8 @@ public class Bus extends Serializable implements FileParser {
                 + this.capacity + "\nBus Type: " + this.busType + "\nCity: " + this.city + "\nDeparture: " + this.departure + "\nArrival: " + this.arrival;
     }
 
-    public void addSchedule(Timestamp calendar, int capacity) {
-        Schedule schedule = new Schedule(calendar, capacity);
+    public void addSchedule(Timestamp calendar) {
+        Schedule schedule = new Schedule(calendar, this.capacity);
         schedules.add(schedule);
     }
     

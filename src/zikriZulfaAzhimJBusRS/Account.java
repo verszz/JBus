@@ -1,7 +1,7 @@
 package zikriZulfaAzhimJBusRS;
 
 
-public class Account extends Serializable implements FileParser {
+public class Account extends Serializable /*implements FileParser*/ {
     public String email;
     public String name;
     public String password;
@@ -17,7 +17,7 @@ public class Account extends Serializable implements FileParser {
         return "Name: " + this.name + "\nEmail: " + this.email + "\nPassword: " + this.password;
     }
 
-    @Override
+    /*@Override
     public boolean read(String content) {
         return false;
     }
@@ -25,5 +25,5 @@ public class Account extends Serializable implements FileParser {
     @Override
     public Object write() {
         return null;
-    }
+    }*/
 }

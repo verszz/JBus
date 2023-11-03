@@ -1,5 +1,6 @@
 package zikriZulfaAzhimJBusRS;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.sql.Timestamp;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Bus extends Serializable implements FileParser {
+public class Bus extends Serializable /*implements FileParser*/ {
     public int capacity;
     public Facility facility;
     public String name;
@@ -37,14 +38,24 @@ public class Bus extends Serializable implements FileParser {
     }
 
     public String toString() {
-        return "Name: " + this.name + "\nFacility: " + this.facility + "\nPrice: " + this.price + "\nCapacity: "
+        return "Bus ID: "+this.id+"\nName: " + this.name + "\nFacility: " + this.facility + "\nPrice: " + this.price + "\nCapacity: "
                 + this.capacity + "\nBus Type: " + this.busType + "\nCity: " + this.city + "\nDeparture: " + this.departure + "\nArrival: " + this.arrival;
     }
 
-    public void addSchedule(Timestamp calendar) {
-        Schedule schedule = new Schedule(calendar, this.capacity);
-        schedules.add(schedule);
-    }
+    public void addSchedule(Timestamp calendar){
+        try{
+            for(Schedule sch: this.schedules){
+                if(sch.departureSchedule.equals(calendar)){
+                    System.out.println("Schedule already exist");
+                }else{
+                    Schedule schedule = new Schedule(calendar, this.capacity);
+                schedules.add(schedule);
+                    System.out.println("Schedule has been added");
+            }}
+    } catch(Exception e) {
+            System.out.println("Unexcepted Exception");
+            e.printStackTrace();
+        }}
     
     /*public void printSchedule(Schedule schedule){
         SimpleDateFormat SDFormat = new SimpleDateFormat("MMMM dd, yyyy HH:mm:ss");
@@ -56,7 +67,7 @@ public class Bus extends Serializable implements FileParser {
         }
     }*/
 
-    @Override
+    /*@Override
     public boolean read(String content) {
         return false;
     }
@@ -64,5 +75,5 @@ public class Bus extends Serializable implements FileParser {
     @Override
     public Object write() {
         return null;
-    }
+    }*/
 }

@@ -84,18 +84,74 @@ public class JBus {
         return bus;
     }
 
+    public static List<Bus> filterByDeparture( List<Bus> buses, City departure, int page, int pageSize){
+        Predicate<Bus> filterDep = (bus) -> bus.city == departure;
+        return Algorithm.paginate(buses, page, pageSize, filterDep);
+    }
+
+    public static List<Bus> filterByPrice( List<Bus> buses, int min, int max){
+        Predicate<Bus> range = (bus) -> bus.price.price >= min && bus.price.price <= max;
+        return Algorithm.collect(buses, range);
+    }
+
+    public static Bus filterBusId(List<Bus> buses, int id) {
+        Predicate<Bus> findId = (bus) -> bus.id == id;
+        return Algorithm.find(buses, findId);
+    }
+
+    public static List<Bus> filterByDepartureAndArrival( List<Bus> buses, City departure, City arrival, int page, int pageSize){
+        Predicate<Bus> filterDepArr = (bus) -> bus.departure.city == departure && bus.arrival.city == arrival;
+        return Algorithm.paginate(buses, page, pageSize, filterDepArr);
+    }
+
     public static void main(String[] args) {
         // TP Modul 6
-        String filepath = "C:\\Users\\ASUS\\Documents\\Tugas Zikri\\Semester 3\\OOP\\Praktikum\\JBus\\data\\station.json";
-        Gson gson = new Gson();
+//        String filepath = "C:\\Users\\ASUS\\Documents\\Tugas Zikri\\Semester 3\\OOP\\Praktikum\\JBus\\data\\station.json";
+//        Gson gson = new Gson();
+//        try {
+//            BufferedReader buffer = new BufferedReader(new FileReader (filepath));
+//            List<Station> stationjson = gson.fromJson(buffer, new TypeToken<List<Station>>() {}.getType());
+//            stationjson.forEach(e -> System.out.println(e.toString()));
+//            System.out.println();
+//            buffer.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        try {
+//            String filepath =
+//                    "C:\\Users\\ASUS\\Documents\\Tugas Zikri\\Semester 3\\OOP\\Praktikum\\JBus\\data\\buses.json";
+//            JsonTable<Bus> busList = new JsonTable<>(Bus.class,filepath);
+//            List<Bus> filteredBus =
+//                    filterByDeparture(busList,City.JAKARTA,1,10);
+//            filteredBus.forEach(bus -> System.out.println("\n"+bus.toString()));
+//        }
+//        catch (Throwable t) {
+//            t.printStackTrace();
+//        }
         try {
-            BufferedReader buffer = new BufferedReader(new FileReader (filepath));
-            List<Station> stationjson = gson.fromJson(buffer, new TypeToken<List<Station>>() {}.getType());
-            stationjson.forEach(e -> System.out.println(e.toString()));
-            System.out.println();
-            buffer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            String filepath =
+                    "C:\\Users\\ASUS\\Documents\\Tugas Zikri\\Semester 3\\OOP\\Praktikum\\JBus\\data\\buses_CS.json";
+
+//            JsonTable<Bus> busList = new JsonTable<>(Bus.class,filepath);
+//            List<Bus> filteredBus = filterByDeparture(busList,City.JAKARTA,0,3); //
+//            filteredBus.forEach(bus -> System.out.println("\n"+bus.toString()));
+
+            JsonTable<Bus> busList = new JsonTable<>(Bus.class,filepath);
+            List<Bus> filteredBus = filterByDepartureAndArrival(busList,City.JAKARTA,City.SURABAYA,0,3);
+            filteredBus.forEach(bus -> System.out.println("\n"+bus.toString()));
+
+//            JsonTable<Bus> busList = new JsonTable<>(Bus.class,filepath);
+//            List<Bus> filteredBus = filterByPrice(busList,100000, 500000);
+//            filteredBus.forEach(bus -> System.out.println("\n"+bus.toString()));
+
+//            JsonTable<Bus> busList = new JsonTable<>(Bus.class, filepath);
+//            List<Bus> filteredBus = new ArrayList<>();
+//            filteredBus.add(filterBusId(busList, 155));
+//            filteredBus.forEach(bus -> System.out.println(bus.toString()));
+        }
+        catch (Throwable t) {
+            t.printStackTrace();
         }
     }
 //        Bus b = createBus();

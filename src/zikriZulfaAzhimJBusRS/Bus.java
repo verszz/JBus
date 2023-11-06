@@ -54,16 +54,16 @@ public class Bus extends Serializable /*implements FileParser*/ {
         try {
             for (Schedule Exist : schedules) {
                 if (Exist.departureSchedule.equals(departureSchedule)) {
-                    System.out.println(("Jadwal sudah ada"));
+                    System.out.println(("Schedule already exist"));
                     return;
                 }
             }
             schedules.add(new Schedule(departureSchedule, this.capacity));
         }catch(Exception e){
-            System.err.println("Error menambah Jadwal" + e.getMessage());
+            System.err.println("Cannot adding schedule" + e.getMessage());
         }
     }
-    
+
     /*public void printSchedule(Schedule schedule){
         SimpleDateFormat SDFormat = new SimpleDateFormat("MMMM dd, yyyy HH:mm:ss");
         String curr_date = SDFormat.format(schedule.departureSchedule.getTime());

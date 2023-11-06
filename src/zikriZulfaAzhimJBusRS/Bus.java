@@ -61,6 +61,7 @@ public class Bus extends Serializable /*implements FileParser*/ {
             schedules.add(new Schedule(departureSchedule, this.capacity));
         }catch(Exception e){
             System.err.println("Cannot adding schedule" + e.getMessage());
+            e.printStackTrace();
         }
     }
 

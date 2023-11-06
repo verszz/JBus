@@ -24,6 +24,15 @@ public class Bus extends Serializable /*implements FileParser*/ {
     public Station arrival;
     public List<Schedule> schedules;
 
+
+    public boolean read(String Content) {
+        return false;
+    }
+
+
+    public Object write() {
+        return null;
+    }
     public Bus(String name, Facility facility, Price price, int capacity, BusType busType, City city, Station departure, Station arrival) {
         this.name = name;
         this.facility = facility;
@@ -41,20 +50,19 @@ public class Bus extends Serializable /*implements FileParser*/ {
                 + this.capacity + "\nBus Type: " + this.busType + "\nCity: " + this.city + "\nDeparture: " + this.departure + "\nArrival: " + this.arrival;
     }
 
-    public void addSchedule(Timestamp calendar){
-        try{
-            for(Schedule sch: this.schedules){
-                if(sch.departureSchedule.equals(calendar)){
-                    System.out.println("Schedule already exist");
-                }else{
-                    Schedule schedule = new Schedule(calendar, this.capacity);
-                schedules.add(schedule);
-                    System.out.println("Schedule has been added");
-            }}
-    } catch(Exception e) {
-            System.out.println("Unexcepted Exception");
-            e.printStackTrace();
-        }}
+    public void addSchedule(Timestamp departureSchedule) {
+        try {
+            for (Schedule Exist : schedules) {
+                if (Exist.departureSchedule.equals(departureSchedule)) {
+                    System.out.println(("Jadwal sudah ada"));
+                    return;
+                }
+            }
+            schedules.add(new Schedule(departureSchedule, this.capacity));
+        }catch(Exception e){
+            System.err.println("Error menambah Jadwal" + e.getMessage());
+        }
+    }
     
     /*public void printSchedule(Schedule schedule){
         SimpleDateFormat SDFormat = new SimpleDateFormat("MMMM dd, yyyy HH:mm:ss");

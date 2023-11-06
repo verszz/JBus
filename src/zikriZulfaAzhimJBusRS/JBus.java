@@ -126,25 +126,25 @@ public class JBus {
         }
         Thread.sleep(1000);
         bus.schedules.forEach(Schedule::printSchedule);
-        try {
-            // Membuat JsonTable dengan dua generic Account
-            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, "C:\\Users\\ASUS\\Documents\\Tugas Zikri\\Semester 3\\OOP\\Praktikum\\JBus\\data\\accountDatabase.json");
-
-            // Menambahkan dua akun ke dalam tabel
-            Account account1 = new Account(0,"zikri","zikri@gmail.com", "Password123");
-            Account account2 = new Account(1,"zulfa","zulfa@example.com", "Password456");
-
-            tableAccount.add(account1);
-            tableAccount.add(account2);
-
-            // Menyimpan tabel ke file JSON
-            tableAccount.writeJson();
-
-            System.out.println("Data telah berhasil disimpan ke accountDatabase.json");
-        System.out.println(tableAccount);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            // Membuat JsonTable dengan dua generic Account
+//            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, "C:\\Users\\ASUS\\Documents\\Tugas Zikri\\Semester 3\\OOP\\Praktikum\\JBus\\data\\accountDatabase.json");
+//
+//            // Menambahkan dua akun ke dalam tabel
+//            Account account1 = new Account(0,"zikri","zikri@gmail.com", "Password123");
+//            Account account2 = new Account(1,"zulfa","zulfa@example.com", "Password456");
+//
+//            tableAccount.add(account1);
+//            tableAccount.add(account2);
+//
+//            // Menyimpan tabel ke file JSON
+//            tableAccount.writeJson();
+//
+//            System.out.println("Data telah berhasil disimpan ke accountDatabase.json");
+//        System.out.println(tableAccount);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
     }

@@ -13,7 +13,7 @@ public class BookingThread extends Thread{
     public void run(){
         System.out.println(this.getName() + " ID : " + this.getId() + " is Running");
         synchronized (bus){
-            boolean BookRes = Payment.makeBooking(timestamp,"RS01", bus);
+            boolean BookRes = Payment.makeBooking(timestamp,"RS02", bus);
             if (BookRes) {
                 System.out.println("Thread "+this.getId() + " Berhasil melakukan Booking");
             } else {

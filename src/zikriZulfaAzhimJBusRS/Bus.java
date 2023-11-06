@@ -24,8 +24,7 @@ public class Bus extends Serializable /*implements FileParser*/ {
     public Station arrival;
     public List<Schedule> schedules;
 
-    public Bus(int id, String name, Facility facility, Price price, int capacity, BusType busType, City city, Station departure, Station arrival) {
-        super();
+    public Bus(String name, Facility facility, Price price, int capacity, BusType busType, City city, Station departure, Station arrival) {
         this.name = name;
         this.facility = facility;
         this.price = price;

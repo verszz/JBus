@@ -1,5 +1,6 @@
 package zikriZulfaAzhimJBusRS;
 
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +12,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.sql.Timestamp;
 import java.util.List;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class JBus {
     public static int getBusId() {
@@ -78,11 +81,22 @@ public class JBus {
     //    Bus bus = new Bus(1, "Netlab Bus", Facility.LUNCH, price, 25);
     //    return bus;
     //}
+//    public static Bus createBus() {
+//        Price price = new Price(750000, 5);
+//        Bus bus = new Bus(1, "Netlab Bus", Facility.LUNCH, price, 25, BusType.REGULER, City.BANDUNG, new Station(1, "Depok Terminal", City.DEPOK, "Jl. Margonda Raya"), new Station(2, "Halte UI", City.JAKARTA, "Universitas Indonesia"));
+//        return bus;
+//    }
+
     public static Bus createBus() {
         Price price = new Price(750000, 5);
-        Bus bus = new Bus(1, "Netlab Bus", Facility.LUNCH, price, 25, BusType.REGULER, City.BANDUNG, new Station(1, "Depok Terminal", City.DEPOK, "Jl. Margonda Raya"), new Station(2, "Halte UI", City.JAKARTA, "Universitas Indonesia"));
+        Bus bus = new Bus("Netlab Bus", Facility.LUNCH, price, 25,
+                BusType.REGULER, City.BANDUNG, new Station("Depok Terminal", City.DEPOK,
+                "Jl. Margonda Raya"), new Station("Halte UI", City.JAKARTA, "Universitas Indonesia"));
+                Timestamp timestamp = Timestamp.valueOf("2023-07-27 19:00:00");
+        bus.addSchedule(timestamp);
         return bus;
     }
+
 
     public static List<Bus> filterByDeparture( List<Bus> buses, City departure, int page, int pageSize){
         Predicate<Bus> filterDep = (bus) -> bus.city == departure;
@@ -104,7 +118,36 @@ public class JBus {
         return Algorithm.paginate(buses, page, pageSize, filterDepArr);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        Bus bus = createBus();
+        bus.schedules.forEach(Schedule::printSchedule);
+        for(int i =0; i < 10; i++){
+            BookingThread thread = new BookingThread("Thread " + i,bus, Timestamp.valueOf("2023-07-27 19:00:00"));
+        }
+        Thread.sleep(1000);
+        bus.schedules.forEach(Schedule::printSchedule);
+        try {
+            // Membuat JsonTable dengan dua generic Account
+            JsonTable<Account> tableAccount = new JsonTable<>(Account.class, "C:\\Users\\ASUS\\Documents\\Tugas Zikri\\Semester 3\\OOP\\Praktikum\\JBus\\data\\accountDatabase.json");
+
+            // Menambahkan dua akun ke dalam tabel
+            Account account1 = new Account(0,"zikri","zikri@gmail.com", "Password123");
+            Account account2 = new Account(1,"zulfa","zulfa@example.com", "Password456");
+
+            tableAccount.add(account1);
+            tableAccount.add(account2);
+
+            // Menyimpan tabel ke file JSON
+            tableAccount.writeJson();
+
+            System.out.println("Data telah berhasil disimpan ke accountDatabase.json");
+        System.out.println(tableAccount);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    }
         // TP Modul 6
 //        String filepath = "C:\\Users\\ASUS\\Documents\\Tugas Zikri\\Semester 3\\OOP\\Praktikum\\JBus\\data\\station.json";
 //        Gson gson = new Gson();
@@ -129,31 +172,31 @@ public class JBus {
 //        catch (Throwable t) {
 //            t.printStackTrace();
 //        }
-        try {
-            String filepath =
-                    "C:\\Users\\ASUS\\Documents\\Tugas Zikri\\Semester 3\\OOP\\Praktikum\\JBus\\data\\buses_CS.json";
-
-//            JsonTable<Bus> busList = new JsonTable<>(Bus.class,filepath);
-//            List<Bus> filteredBus = filterByDeparture(busList,City.JAKARTA,0,3); //
-//            filteredBus.forEach(bus -> System.out.println("\n"+bus.toString()));
-
-            JsonTable<Bus> busList = new JsonTable<>(Bus.class,filepath);
-            List<Bus> filteredBus = filterByDepartureAndArrival(busList,City.JAKARTA,City.SURABAYA,0,3);
-            filteredBus.forEach(bus -> System.out.println("\n"+bus.toString()));
-
-//            JsonTable<Bus> busList = new JsonTable<>(Bus.class,filepath);
-//            List<Bus> filteredBus = filterByPrice(busList,100000, 500000);
-//            filteredBus.forEach(bus -> System.out.println("\n"+bus.toString()));
-
+//        try {
+//            String filepath =
+//                    "C:\\Users\\ASUS\\Documents\\Tugas Zikri\\Semester 3\\OOP\\Praktikum\\JBus\\data\\buses_CS.json";
+//
+////            JsonTable<Bus> busList = new JsonTable<>(Bus.class,filepath);
+////            List<Bus> filteredBus = filterByDeparture(busList,City.JAKARTA,0,3); //
+////            filteredBus.forEach(bus -> System.out.println("\n"+bus.toString()));
+//
+////            JsonTable<Bus> busList = new JsonTable<>(Bus.class,filepath);
+////            List<Bus> filteredBus = filterByDepartureAndArrival(busList,City.JAKARTA,City.SURABAYA,0,3);
+////            filteredBus.forEach(bus -> System.out.println("\n"+bus.toString()));
+//
+////            JsonTable<Bus> busList = new JsonTable<>(Bus.class,filepath);
+////            List<Bus> filteredBus = filterByPrice(busList,100000, 500000);
+////            filteredBus.forEach(bus -> System.out.println("\n"+bus.toString()));
+//
 //            JsonTable<Bus> busList = new JsonTable<>(Bus.class, filepath);
 //            List<Bus> filteredBus = new ArrayList<>();
 //            filteredBus.add(filterBusId(busList, 155));
 //            filteredBus.forEach(bus -> System.out.println(bus.toString()));
-        }
-        catch (Throwable t) {
-            t.printStackTrace();
-        }
-    }
+//        }
+//        catch (Throwable t) {
+//            t.printStackTrace();
+//        }
+//    }
 //        Bus b = createBus();
 //        List<Timestamp> listOfSchedules = new ArrayList<>();
 //        listOfSchedules.add(Timestamp.valueOf("2023-7-18 15:00:00"));
@@ -339,5 +382,5 @@ public class JBus {
 //        System.out.println("Above 43");
 //        System.out.println(integerAbove);
 //    }
-}
+//}
 

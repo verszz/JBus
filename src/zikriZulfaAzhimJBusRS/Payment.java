@@ -89,45 +89,56 @@ public class Payment extends Invoice
 //        return false;
 //    }
 
-    public static Schedule availableSchedule(Timestamp departureDate, String seat, Bus bus){
-        for(Schedule schedule : bus.schedules) {
-            if(departureDate.equals(schedule.departureSchedule) && schedule.isSeatAvailable(seat)){
-                return schedule;
-            }
-        }
-
-        return null;
-    }
-
-    public static Schedule availableSchedule (Timestamp departureDate, List<String> busSeatList, Bus bus){
-        for(Schedule sch : bus.schedules) {
-            if(departureDate.equals(sch.departureSchedule) && sch.isSeatAvailable(busSeatList)){
-                return sch;
-            }
-        }
-        return null;
-    }
-
-    public static boolean makeBooking (Timestamp departureSchedule, List<String> seatList, Bus bus) {
+    public static List<Schedule> availableSchedule(Timestamp departureSchedule, List<String> seats, Bus bus) {
+        List<Schedule> availableBus = new ArrayList<>();
+        boolean statusboolean = false;
         for (Schedule s : bus.schedules) {
-            if (departureSchedule.equals(s.departureSchedule) && s.isSeatAvailable(seatList)) {
-                s.bookSeat(seatList);
-                return true;
+            if (s.departureSchedule.equals(departureSchedule)) {
+                for (String seat : seats) {
+                    if (!s.isSeatAvailable(seat)) {
+                        statusboolean = true;
+                    }
+                }
+            }
+            if (statusboolean) {
+                availableBus.add(s);
             }
         }
+        return availableBus;
+    }
 
+    public static Schedule availableSchedule(Timestamp departureSchedule, String seat, Bus bus) {
+        for (Schedule s : bus.schedules) {
+            if (s.departureSchedule.equals(departureSchedule) && s.isSeatAvailable(seat)) {
+                return s;
+            }
+        }
+        return null;
+    }
+
+    public static boolean makeBooking(Timestamp departureSchedule, String seat, Bus bus) {
+        Schedule s = availableSchedule(departureSchedule, seat, bus);
+        if (s != null) {
+            s.bookSeat(seat);
+            return true;
+        }
+        return false;
+    }
+    public static boolean makeBooking(Timestamp departureSchedule, List<String> seats, Bus bus) {
+        List<Schedule> s = availableSchedule(departureSchedule, seats, bus);
+        if (!s.isEmpty()) {
+            for (Schedule schedule : s) {
+                for (String seat : seats) {
+                    if (schedule.isSeatAvailable(seat)) {
+                        schedule.bookSeat(seats);
+                    }
+                }
+            }
+            return true;
+        }
         return false;
     }
 
-    public static boolean makeBooking(Timestamp departureSchedule, String seat, Bus bus){
-        for (Schedule bs : bus.schedules){
-            if (bs.departureSchedule.equals(departureSchedule) && bs.isSeatAvailable(seat)){
-                bs.bookSeat(seat);
-                return true;
-            }
-        }
-        return false;
-    }
 
     public int getBusId(){
         return this.busId;

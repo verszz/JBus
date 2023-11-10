@@ -40,6 +40,13 @@ public class Account extends Serializable /*implements FileParser*/ {
         return "Name: " + this.name + "\nEmail: " + this.email + "\nPassword: " + this.password;
     }
 
+    public boolean topUp(double amount){
+        if(amount < 0)
+            return false;
+        balance += amount;
+        return true;
+    }
+
     /*@Override
     public boolean read(String content) {
         return false;

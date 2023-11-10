@@ -1,5 +1,6 @@
 package com.zikriZulfaAzhimJBusRS;
 
+import com.zikriZulfaAzhimJBusRS.dbjson.JsonDBEngine;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.BufferedReader;
@@ -121,7 +122,9 @@ public class JBus {
     }
 
     public static void main(String[] args) throws InterruptedException {
+        JsonDBEngine.Run(JBus.class);
         SpringApplication.run(JBus.class, args);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> JsonDBEngine.join()));
 //        Bus bus = createBus();
 //        bus.schedules.forEach(Schedule::printSchedule);
 //        for(int i =0; i < 10; i++){

@@ -52,8 +52,7 @@ public class Renter extends Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public Renter(int id, String companyName, String phoneNumber, String address) {
-        super();
+    public Renter(String companyName, String phoneNumber, String address) {
         this.companyName = companyName;
         this.address = address;
         this.phoneNumber = phoneNumber;

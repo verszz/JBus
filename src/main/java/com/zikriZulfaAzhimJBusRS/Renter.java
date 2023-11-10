@@ -1,6 +1,8 @@
 package com.zikriZulfaAzhimJBusRS;
 
 
+import com.zikriZulfaAzhimJBusRS.dbjson.Serializable;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

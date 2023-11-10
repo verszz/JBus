@@ -1,6 +1,8 @@
 package com.zikriZulfaAzhimJBusRS;
 
 
+import com.zikriZulfaAzhimJBusRS.dbjson.Serializable;
+
 /**
  * Write a description of class Review here.
  *

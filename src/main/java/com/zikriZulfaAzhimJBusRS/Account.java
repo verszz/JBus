@@ -1,6 +1,8 @@
 package com.zikriZulfaAzhimJBusRS;
 
 
+import com.zikriZulfaAzhimJBusRS.dbjson.Serializable;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,6 +10,8 @@ public class Account extends Serializable /*implements FileParser*/ {
     public String email;
     public String name;
     public String password;
+    public Renter company;
+    public double balance;
     public static final String REGEX_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$";
     public static final String REGEX_EMAIL = "^[a-zA-Z0-9]+@[a-zA-Z]+\\.[a-z]{2,}(\\.[a-zA-Z]+)*$";
 
@@ -28,6 +32,8 @@ public class Account extends Serializable /*implements FileParser*/ {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.balance = 0;
+        this.company = null;
     }
 
     public String toString() {

@@ -1,6 +1,8 @@
 package com.zikriZulfaAzhimJBusRS;
 
 
+import com.zikriZulfaAzhimJBusRS.dbjson.Serializable;
+
 public class Voucher extends Serializable /*implements FileParser*/ {
     public String name;
     private boolean used;

@@ -1,6 +1,5 @@
 package com.zikriZulfaAzhimJBusRS;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.sql.Timestamp;
 import java.util.List;
@@ -15,16 +14,16 @@ public class Payment extends Invoice
 {
     private int busId;
     public Timestamp departureDate;
-    public String busSeat;
+    public List<String> busSeat;
 
-    public Payment(int id, int buyerId, int renterId, int busId, String busSeat, Timestamp departureDate){
+    public Payment(int id, int buyerId, int renterId, List<String> busSeat, Timestamp departureDate){
         super(id, buyerId, renterId);
         this.busId = busId;
         this.busSeat = busSeat;
         this.departureDate = departureDate;
         //this.departureDate.add(Calendar.DAY_OF_MONTH, 2);
     }
-    public Payment(int id, Account buyer, Renter renter, int busId, String busSeat, Timestamp departureDate){
+    public Payment(int id, Account buyer, Renter renter, int busId, List<String> busSeat, Timestamp departureDate){
         super(id, buyer, renter);
         this.busId = busId;
         this.departureDate = departureDate;
@@ -89,56 +88,61 @@ public class Payment extends Invoice
 //        return false;
 //    }
 
-    public static List<Schedule> availableSchedule(Timestamp departureSchedule, List<String> seats, Bus bus) {
-        List<Schedule> availableBus = new ArrayList<>();
-        boolean statusboolean = false;
-        for (Schedule s : bus.schedules) {
-            if (s.departureSchedule.equals(departureSchedule)) {
+    public static Schedule availableSchedule(Timestamp departureDate, List<String> seats, Bus bus) {
+        for (Schedule schedule : bus.schedules) {
+            if (schedule.departureSchedule.equals(departureDate)) {
+                boolean allSeatsAvailable = true;
                 for (String seat : seats) {
-                    if (!s.isSeatAvailable(seat)) {
-                        statusboolean = true;
+                    if (!schedule.isSeatAvailable(seat)) {
+                        allSeatsAvailable = false;
+                        break;
                     }
                 }
-            }
-            if (statusboolean) {
-                availableBus.add(s);
-            }
-        }
-        return availableBus;
-    }
-
-    public static Schedule availableSchedule(Timestamp departureSchedule, String seat, Bus bus) {
-        for (Schedule s : bus.schedules) {
-            if (s.departureSchedule.equals(departureSchedule) && s.isSeatAvailable(seat)) {
-                return s;
+                if (allSeatsAvailable) {
+                    return schedule;
+                }
             }
         }
         return null;
     }
 
-    public static boolean makeBooking(Timestamp departureSchedule, String seat, Bus bus) {
-        Schedule s = availableSchedule(departureSchedule, seat, bus);
-        if (s != null) {
-            s.bookSeat(seat);
-            return true;
-        }
-        return false;
-    }
-    public static boolean makeBooking(Timestamp departureSchedule, List<String> seats, Bus bus) {
-        List<Schedule> s = availableSchedule(departureSchedule, seats, bus);
-        if (!s.isEmpty()) {
-            for (Schedule schedule : s) {
-                for (String seat : seats) {
-                    if (schedule.isSeatAvailable(seat)) {
-                        schedule.bookSeat(seats);
-                    }
-                }
+    public static Schedule availableSchedule(Timestamp departureDate, String seat, Bus bus) {
+        for (Schedule schedule : bus.schedules) {
+            if (schedule.departureSchedule.equals(departureDate) && schedule.isSeatAvailable(seat)) {
+                return schedule;
             }
-            return true;
         }
-        return false;
+        return null;
     }
 
+    public static boolean makeBooking(Timestamp departureDate, String seat, Bus bus) {
+        Schedule schedule = availableSchedule(departureDate, seat, bus);
+        if (schedule != null) {
+            schedule.bookSeat(seat);
+            return true;
+        }
+        return false;
+    }
+    public static boolean makeBooking(Timestamp departureDate, List<String> seats, Bus bus) {
+        boolean allSeatsAvailable = true;
+        Schedule schedule = availableSchedule(departureDate, seats, bus);
+
+        if (schedule != null) {
+            for (String seat : seats) {
+                if (!schedule.isSeatAvailable(seat)) {
+                    allSeatsAvailable = false;
+                    break;
+                }
+            }
+            if (allSeatsAvailable) {
+                for (String seat : seats) {
+                    schedule.bookSeat(seat);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
 
     public int getBusId(){
         return this.busId;

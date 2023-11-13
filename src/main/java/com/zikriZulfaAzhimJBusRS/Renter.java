@@ -31,21 +31,14 @@ public class Renter extends Serializable {
 
     }
 
-    public Renter(int id, String companyName) {
+    public Renter(String companyName) {
         super();
         this.companyName = companyName;
         this.address = "";
         this.phoneNumber = "";
     }
 
-    public Renter(int id, String companyName, String address) {
-        super();
-        this.companyName = companyName;
-        this.address = address;
-        this.phoneNumber = "";
-    }
-
-    public Renter(String phoneNumber, int id, String companyName) {
+    public Renter(String phoneNumber, String companyName) {
         super();
         this.companyName = companyName;
         this.address = "";

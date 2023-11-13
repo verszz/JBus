@@ -14,14 +14,14 @@ import java.sql.Timestamp;
  */
 public class Bus extends Serializable /*implements FileParser*/ {
     public int capacity;
-    public Facility facility;
+    public List<Facility> facility;
     public String name;
     public Price price;
     public BusType busType;
-    public City city;
     public Station departure;
     public Station arrival;
     public List<Schedule> schedules;
+    public int accountId;
 
 
     public boolean read(String Content) {
@@ -32,13 +32,13 @@ public class Bus extends Serializable /*implements FileParser*/ {
     public Object write() {
         return null;
     }
-    public Bus(String name, Facility facility, Price price, int capacity, BusType busType, City city, Station departure, Station arrival) {
+    public Bus(int accountId, String name, List<Facility> facility, Price price, int capacity, BusType busType, Station departure, Station arrival) {
+        this.accountId = accountId;
         this.name = name;
         this.facility = facility;
         this.price = price;
         this.capacity = capacity;
         this.busType = busType;
-        this.city = city;
         this.departure = departure;
         this.arrival = arrival;
         this.schedules = new ArrayList<Schedule>();
@@ -46,7 +46,7 @@ public class Bus extends Serializable /*implements FileParser*/ {
 
     public String toString() {
         return "Bus ID: "+this.id+"\nName: " + this.name + "\nFacility: " + this.facility + "\nPrice: " + this.price + "\nCapacity: "
-                + this.capacity + "\nBus Type: " + this.busType + "\nCity: " + this.city + "\nDeparture: " + this.departure + "\nArrival: " + this.arrival;
+                + this.capacity + "\nBus Type: " + this.busType + "\nDeparture: " + this.departure + "\nArrival: " + this.arrival;
     }
 
     public void addSchedule(Timestamp departureSchedule) {

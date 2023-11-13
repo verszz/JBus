@@ -143,6 +143,6 @@ public class AccountController implements BasicGetController<Account>
 
     @Override
     public JsonTable<Account> getJsonTable() {
-        return null;
+        return accountTable;
     }
 }

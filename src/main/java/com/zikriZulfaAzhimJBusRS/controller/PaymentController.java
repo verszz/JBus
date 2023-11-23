@@ -28,11 +28,11 @@ public class PaymentController implements BasicGetController<Payment>
                 @RequestParam String departureDate
         ) {
 
-                if (buyerId <= 0 || renterId <= 0 || busId <= 0 || busSeats == null || busSeats.isEmpty() || departureDate == null) {
+                if (buyerId < 0 || renterId < 0 || busId < 0 || busSeats == null || busSeats.isEmpty() || departureDate == null) {
                     return new BaseResponse<>(false, "Nilai yang diinput salah", null);
                 }
 
-                Account buyer = Algorithm.<Account>find(AccountController.accountTable, b -> b.id == busId);
+                Account buyer = Algorithm.<Account>find(AccountController.accountTable, b -> b.id == buyerId);
                 Bus bus = Algorithm.<Bus>find(BusController.busTable, b -> b.id == busId);
 
                 if (buyer == null || bus == null) {

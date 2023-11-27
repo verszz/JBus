@@ -106,20 +106,20 @@ public class JBus {
 //        return Algorithm.paginate(buses, page, pageSize, filterDep);
 //    }
 
-    public static List<Bus> filterByPrice( List<Bus> buses, int min, int max){
-        Predicate<Bus> range = (bus) -> bus.price.price >= min && bus.price.price <= max;
-        return Algorithm.collect(buses, range);
-    }
-
-    public static Bus filterBusId(List<Bus> buses, int id) {
-        Predicate<Bus> findId = (bus) -> bus.id == id;
-        return Algorithm.find(buses, findId);
-    }
-
-    public static List<Bus> filterByDepartureAndArrival( List<Bus> buses, City departure, City arrival, int page, int pageSize){
-        Predicate<Bus> filterDepArr = (bus) -> bus.departure.city == departure && bus.arrival.city == arrival;
-        return Algorithm.paginate(buses, page, pageSize, filterDepArr);
-    }
+//    public static List<Bus> filterByPrice( List<Bus> buses, int min, int max){
+//        Predicate<Bus> range = (bus) -> bus.price.price >= min && bus.price.price <= max;
+//        return Algorithm.collect(buses, range);
+//    }
+//
+//    public static Bus filterBusId(List<Bus> buses, int id) {
+//        Predicate<Bus> findId = (bus) -> bus.id == id;
+//        return Algorithm.find(buses, findId);
+//    }
+//
+//    public static List<Bus> filterByDepartureAndArrival( List<Bus> buses, City departure, City arrival, int page, int pageSize){
+//        Predicate<Bus> filterDepArr = (bus) -> bus.departure.city == departure && bus.arrival.city == arrival;
+//        return Algorithm.paginate(buses, page, pageSize, filterDepArr);
+//    }
 
     public static void main(String[] args) throws InterruptedException {
         JsonDBEngine.Run(JBus.class);

@@ -6,7 +6,7 @@ import com.zikriZulfaAzhimJBusRS.dbjson.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Account extends Serializable /*implements FileParser*/ {
+public class Account extends Serializable{
     public String email;
     public String name;
     public String password;
@@ -25,7 +25,6 @@ public class Account extends Serializable /*implements FileParser*/ {
         boolean email_found = email_match.find();
 
         return password_found && email_found;
-
     }
     public Account(String name, String email, String password) {
         super();
@@ -47,13 +46,4 @@ public class Account extends Serializable /*implements FileParser*/ {
         return true;
     }
 
-    /*@Override
-    public boolean read(String content) {
-        return false;
-    }
-
-    @Override
-    public Object write() {
-        return null;
-    }*/
 }

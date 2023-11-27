@@ -4,10 +4,7 @@ package com.zikriZulfaAzhimJBusRS.controller;
 import com.zikriZulfaAzhimJBusRS.*;
 import com.zikriZulfaAzhimJBusRS.dbjson.JsonAutowired;
 import com.zikriZulfaAzhimJBusRS.dbjson.JsonTable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -80,6 +77,10 @@ public class BusController implements BasicGetController<Bus>
         return new BaseResponse<>(true, "Jadwal telah ditambahkan", bus);
 
     }
+
+    @GetMapping("/getMyBus")
+    public List<Bus> getMyBus(@RequestParam int accountId) {
+        return Algorithm.<Bus>collect(getJsonTable(), b->b.accountId==accountId);}
 
     @Override
     public JsonTable<Bus> getJsonTable() {

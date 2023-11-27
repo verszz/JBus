@@ -24,7 +24,7 @@ public class Bus extends Serializable /*implements FileParser*/ {
     public int accountId;
 
 
-    public boolean read(String Content) {
+    public boolean read(String filename) {
         return false;
     }
 

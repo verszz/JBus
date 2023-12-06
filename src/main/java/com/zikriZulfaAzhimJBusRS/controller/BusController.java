@@ -66,16 +66,17 @@ public class BusController implements BasicGetController<Bus>
 
     @PostMapping("/addSchedule")
     public BaseResponse<Bus> addSchedule(
-            @RequestParam int BusId,
+            @RequestParam int busId,
             @RequestParam String time
-    ){
-        Bus bus = Algorithm.<Bus>find(busTable, b -> b.id == BusId);
-        if(bus == null){
-            return new BaseResponse<>(false, "Bis tidak ditemukan",null);
-        }
-        bus.addSchedule(Timestamp.valueOf(time));
-        return new BaseResponse<>(true, "Jadwal telah ditambahkan", bus);
+    ) {
+        try {
+            Bus newBus = Algorithm.<Bus>find(busTable, t -> t.id == busId);
+            newBus.addSchedule(Timestamp.valueOf(time));
+            return new BaseResponse<>(true, "Jadwal berhasil ditambahkan", newBus);
 
+        } catch (Exception e) {
+            return new BaseResponse<>(false, "Jadwal tidak berhasil ditambahkan", null);
+        }
     }
 
     @GetMapping("/getMyBus")

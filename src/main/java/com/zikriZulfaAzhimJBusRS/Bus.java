@@ -64,23 +64,27 @@ public class Bus extends Serializable /*implements FileParser*/ {
         }
     }
 
-    /*public void printSchedule(Schedule schedule){
-        SimpleDateFormat SDFormat = new SimpleDateFormat("MMMM dd, yyyy HH:mm:ss");
-        String curr_date = SDFormat.format(schedule.departureSchedule.getTime());
-        System.out.println("Departure date: " + curr_date);
-        System.out.println("Seat availability table:");
-        for(String seat: schedule.seatAvailability.keySet()){
-            System.out.println(seat + ":" + schedule.seatAvailability.get(seat)+"\n");
-        }
-    }*/
+    public boolean removeSchedule(Timestamp departureSchedule) {
+        try {
+            Schedule foundSchedule = null;
+            for (Schedule existingSchedule : schedules) {
+                if (existingSchedule.departureSchedule.equals(departureSchedule)) {
+                    foundSchedule = existingSchedule;
+                    break;
+                }
+            }
 
-    /*@Override
-    public boolean read(String content) {
-        return false;
+            if (foundSchedule != null) {
+                schedules.remove(foundSchedule);
+                return true;
+            } else {
+                return false; // Tidak ditemukan jadwal dengan Timestamp yang diberikan
+            }
+        } catch (Exception e) {
+            System.err.println("Gagal menghapus jadwal: " + e.getMessage());
+            return false; // Gagal menghapus jadwal
+        }
     }
 
-    @Override
-    public Object write() {
-        return null;
-    }*/
+
 }

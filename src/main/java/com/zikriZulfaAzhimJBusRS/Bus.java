@@ -13,57 +13,129 @@ import java.sql.Timestamp;
  * @version (a version number or a date)
  */
 public class Bus extends Serializable /*implements FileParser*/ {
+    /**
+     * Seat capacity of the bus
+     */
     public int capacity;
-    public List<Facility> facility;
+
+    /**
+     * Facility of the bus, calling another enum which is the Facility enum
+     *
+     * @see Facility
+     */
+    public List<Facility> facilities;
+
+    /**
+     * Name of the bus
+     */
     public String name;
+
+    /**
+     * Price details of the Bus
+     */
     public Price price;
+
+    /**
+     * The type of bus according to the BusType enum @see BusType
+     */
     public BusType busType;
-    public Station departure;
+
+    /**
+     * The Station the bus is going to according to the Station class @see Station
+     */
     public Station arrival;
+
+    /**
+     * The Station the bus is departing from according to the Station class @see Station
+     */
+    public Station departure;
+
     public List<Schedule> schedules;
     public int accountId;
 
+    /**
+     * Create a new Bus based on the specified details
+     *
+     * @param accountId        The ID number of the bus, inherited from Serializable class
+     * @param name      The name of the Bus
+     * @param facilities  The facility of the Bus
+     * @param price     The price details of the Bus
+     * @param capacity  The seating capacity of the Bus
+     * @param busType   The type of Bus
+     * @param arrival   The station the bus is going to
+     * @param departure The station the bus is departing from
+     */
+    public Bus(int accountId, String name, List<Facility> facilities, Price price, int capacity, BusType busType, Station departure, Station arrival) {
+        super();
+        this.accountId = accountId;
+        this.capacity = capacity;
+        this.facilities = facilities;
+        this.name = name;
+        this.price = price;
+        this.busType = busType;
+        this.arrival = arrival;
+        this.departure = departure;
+        this.schedules = new ArrayList<>();
+    }
 
+    /**
+     * Returns a string that shows all the Bus details
+     *
+     * @return A string containing the Bus details
+     */
+    public String toString() {
+        return "\nBus ID: " + super.id +
+                ", Bus Name: " + name +
+                ", Facility: " + facilities +
+                ", Price: " + price.price +
+                ", Capacity: " + capacity +
+                ", Bus Type: " + busType +
+                "Departure: " + "\n" + departure + "\n" +
+                "Arrival: " + "\n" + arrival;
+    }
+
+    /**
+     * Writes the object's data to a file
+     *
+     * @return An object representation of the written data
+     */
+    public Object write() {
+        return null;
+    }
+
+    /**
+     * Reads data from a specified file and updates the object's state accordingly
+     *
+     * @param filename The name or path of the file to read from
+     * @return true if the read operation was successful, otherwise false
+     */
     public boolean read(String filename) {
         return false;
     }
 
-
-    public Object write() {
-        return null;
-    }
-    public Bus(int accountId, String name, List<Facility> facility, Price price, int capacity, BusType busType, Station departure, Station arrival) {
-        this.accountId = accountId;
-        this.name = name;
-        this.facility = facility;
-        this.price = price;
-        this.capacity = capacity;
-        this.busType = busType;
-        this.departure = departure;
-        this.arrival = arrival;
-        this.schedules = new ArrayList<Schedule>();
-    }
-
-    public String toString() {
-        return "Bus ID: "+this.id+"\nName: " + this.name + "\nFacility: " + this.facility + "\nPrice: " + this.price + "\nCapacity: "
-                + this.capacity + "\nBus Type: " + this.busType + "\nDeparture: " + this.departure + "\nArrival: " + this.arrival;
-    }
-
-    public void addSchedule(Timestamp departureSchedule) {
-        try {
-            for (Schedule Exist : schedules) {
-                if (Exist.departureSchedule.equals(departureSchedule)) {
-                    System.out.println(("Schedule already exist"));
-                    return;
-                }
+    /**
+     *
+     * @param calendar
+     */
+    public void addSchedule(Timestamp calendar) {
+        // Check for duplicate schedules
+        for (Schedule existingSchedule : schedules) {
+            if (existingSchedule.departureSchedule.equals(calendar)) {
+                // If a duplicate schedule is found, throw an exception
+                throw new IllegalArgumentException("Duplicate schedule with the same timestamp exists.");
             }
-            schedules.add(new Schedule(departureSchedule, this.capacity));
-        }catch(Exception e){
-            System.err.println("Cannot adding schedule" + e.getMessage());
-            e.printStackTrace();
         }
+
+        // If no duplicate schedule found, add the new schedule
+        Schedule schedule = new Schedule(calendar, this.capacity);
+        schedules.add(schedule);
     }
 
+    /**
+     *
+     * @param departureSchedule
+     * @return
+     */
     public boolean removeSchedule(Timestamp departureSchedule) {
         try {
             Schedule foundSchedule = null;

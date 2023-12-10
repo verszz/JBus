@@ -23,7 +23,18 @@ public class BusController implements BasicGetController<Bus>
     @JsonAutowired(value = Bus.class, filepath = "C:\\Users\\ASUS\\Documents\\Tugas Zikri\\Semester 3\\OOP\\Praktikum\\JBus\\src\\main\\java\\com\\zikriZulfaAzhimJBusRS\\json\\bus.json")
     public static JsonTable<Bus> busTable;
 
-
+    /**
+     *
+     * @param accountId
+     * @param name
+     * @param capacity
+     * @param facilities
+     * @param busType
+     * @param price
+     * @param stationDepartureId
+     * @param stationArrivalId
+     * @return
+     */
     @PostMapping("/create")
     public BaseResponse<Bus> create(
             @RequestParam int accountId,
@@ -59,30 +70,66 @@ public class BusController implements BasicGetController<Bus>
         busTable.add(newbus);
         busTable.writeJson();
         return new BaseResponse<>(true, "Bus baru telah didaftarkan", newbus);}
-        catch (IllegalArgumentException | IOException e){
-            return new BaseResponse<>(false, "Bus gagal dibuat",null);
+        catch (IllegalArgumentException e) {
+            // Handle invalid enum value
+            return new BaseResponse<>(false, "Enum tidak valid", null);
+        } catch (Exception e) {
+            // Handle other unexpected errors
+            return new BaseResponse<>(false, "Penambahan tidak bisa dieselsaikan", null);
         }
     }
 
+    /**
+     *
+     * @param busId
+     * @param time
+     * @return
+     */
     @PostMapping("/addSchedule")
     public BaseResponse<Bus> addSchedule(
             @RequestParam int busId,
             @RequestParam String time
     ) {
         try {
-            Bus newBus = Algorithm.<Bus>find(busTable, t -> t.id == busId);
-            newBus.addSchedule(Timestamp.valueOf(time));
-            return new BaseResponse<>(true, "Jadwal berhasil ditambahkan", newBus);
+            // Find the bus by ID
+            Bus bus = Algorithm.<Bus>find(busTable, b -> b.id == busId);
+            if (bus == null) {
+                return new BaseResponse<>(false, "Bus tidak ditemukan", null);
+            }
 
+            // Parse the timestamp from the provided time string
+            Timestamp timestamp = Timestamp.valueOf(time);
+
+            // Add the schedule to the bus
+            bus.addSchedule(timestamp);
+
+            // Write the updated data to the JSON file
+            busTable.writeJson();
+
+            return new BaseResponse<>(true, "jadwal berhasil ditambahkan", bus);
+        } catch (IllegalArgumentException e) {
+            // Handle invalid timestamp format or other validation errors
+            return new BaseResponse<>(false, "Timestamp tidak valid", null);
         } catch (Exception e) {
-            return new BaseResponse<>(false, "Jadwal tidak berhasil ditambahkan", null);
+            // Handle other unexpected errors
+            return new BaseResponse<>(false, "Penambahan jadwal tidak bisa diselesaikan", null);
         }
     }
 
+    /**
+     *
+     * @param accountId
+     * @return
+     */
     @GetMapping("/getMyBus")
     public List<Bus> getMyBus(@RequestParam int accountId) {
         return Algorithm.<Bus>collect(getJsonTable(), b->b.accountId==accountId);}
 
+    /**
+     *
+     * @param busId
+     * @return
+     */
     @DeleteMapping("/delete")
     public BaseResponse<Bus> deleteBus(@RequestParam int busId) {
         try {
@@ -99,6 +146,12 @@ public class BusController implements BasicGetController<Bus>
         }
     }
 
+    /**
+     *
+     * @param busId
+     * @param time
+     * @return
+     */
     @DeleteMapping("/deleteSchedule")
     public BaseResponse<Bus> deleteSchedule(
             @RequestParam int busId,
@@ -123,6 +176,12 @@ public class BusController implements BasicGetController<Bus>
         }
     }
 
+    /**
+     *
+     * @return
+     */
+    @GetMapping("/getAllBus")
+    public List<Bus> getAllBus() { return getJsonTable();}
 
     @Override
     public JsonTable<Bus> getJsonTable() {

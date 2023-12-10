@@ -1,6 +1,11 @@
 package com.zikriZulfaAzhimJBusRS;
 
 
+/**
+ * Enumeration class City
+ *
+ * @author verszz
+ */
 public enum City
 {
     JAKARTA,

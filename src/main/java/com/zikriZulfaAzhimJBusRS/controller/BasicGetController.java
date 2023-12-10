@@ -8,7 +8,13 @@ import com.zikriZulfaAzhimJBusRS.dbjson.Serializable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+/***
+ *
+ * @param <T>
+ */
 public interface BasicGetController<T extends Serializable> {
+
     JsonTable<T> getJsonTable();
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public default List<T> getPage(
@@ -20,7 +26,6 @@ public interface BasicGetController<T extends Serializable> {
 
     @GetMapping("/{id}")
     public default T getById(@PathVariable int id){
-      return Algorithm.<T>find(getJsonTable(), e -> e.id==id);
+        return Algorithm.<T>find(getJsonTable(), e -> e.id==id);
     }
-
 }

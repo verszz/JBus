@@ -18,6 +18,13 @@ public class StationController implements BasicGetController<Station> {
         return stationTable;
     }
 
+    /**
+     *
+     * @param stationName
+     * @param city
+     * @param address
+     * @return
+     */
     @PostMapping("/create")
     public BaseResponse<Station> createStation(
             @RequestParam String stationName,
@@ -50,6 +57,10 @@ public class StationController implements BasicGetController<Station> {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping("/getAll")
     public List<Station> getAllStation() { return getJsonTable();}
 

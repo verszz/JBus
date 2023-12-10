@@ -7,10 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Write a description of class Renter here.
- *
- * @author (your name)
- * @version (a version number or a date)
+ * Represents a Renter in the system who provides services for bus rental.
  */
 public class Renter extends Serializable {
     public String address;
@@ -19,6 +16,10 @@ public class Renter extends Serializable {
     private static final String REGEX_PHONE = "\\d{9,12}" ;
     private static final String REGEX_NAME = "^[A-Z][A-Z0-9_]{3,19}$";
 
+    /**
+     * Validates the company name and phone number of the renter.
+     * @return True if the company name and phone number are valid, otherwise false.
+     */
     public boolean validate() {
         Pattern name = Pattern.compile(this.REGEX_NAME);
         Pattern phone_num = Pattern.compile(this.REGEX_PHONE);
@@ -31,6 +32,10 @@ public class Renter extends Serializable {
 
     }
 
+    /**
+     * Constructs a renter with a company name.
+     * @param companyName The name of the company.
+     */
     public Renter(String companyName) {
         super();
         this.companyName = companyName;
@@ -38,6 +43,11 @@ public class Renter extends Serializable {
         this.phoneNumber = "";
     }
 
+    /**
+     * Constructs a renter with a phone number and company name.
+     * @param phoneNumber The phone number of the renter.
+     * @param companyName The name of the company.
+     */
     public Renter(String phoneNumber, String companyName) {
         super();
         this.companyName = companyName;
@@ -45,7 +55,14 @@ public class Renter extends Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * Constructs a renter with a company name, phone number, and address.
+     * @param companyName The name of the company.
+     * @param phoneNumber The phone number of the renter.
+     * @param address The address of the renter.
+     */
     public Renter(String companyName, String phoneNumber, String address) {
+        super();
         this.companyName = companyName;
         this.address = address;
         this.phoneNumber = phoneNumber;

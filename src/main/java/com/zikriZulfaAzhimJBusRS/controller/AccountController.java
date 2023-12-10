@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 
 
-
 @RestController
 @RequestMapping("/account")
 public class AccountController implements BasicGetController<Account>
@@ -22,9 +21,21 @@ public class AccountController implements BasicGetController<Account>
 
     @JsonAutowired (value = Account.class, filepath = "C:\\Users\\ASUS\\Documents\\Tugas Zikri\\Semester 3\\OOP\\Praktikum\\JBus\\src\\main\\java\\com\\zikriZulfaAzhimJBusRS\\json\\account.json")
     public static JsonTable<Account> accountTable;
+
+    /***
+     *
+     * @return
+     */
     @GetMapping
     String index() { return "account page"; }
 
+    /***
+     *
+     * @param name
+     * @param email
+     * @param password
+     * @return
+     */
     @PostMapping("/register")
     BaseResponse<Account>Register
             (
@@ -67,6 +78,12 @@ public class AccountController implements BasicGetController<Account>
         return new BaseResponse<>(true, "Akun teregistrasi", makeAcc);
     }
 
+    /***
+     *
+     * @param email
+     * @param password
+     * @return
+     */
     @PostMapping("/login")
     BaseResponse<Account> login (
             @RequestParam String email,
@@ -101,7 +118,14 @@ public class AccountController implements BasicGetController<Account>
         return new BaseResponse<>(true, "Login berhasil", logAccount);
     }
 
-
+    /***
+     *
+     * @param id
+     * @param companyName
+     * @param address
+     * @param phoneNumber
+     * @return
+     */
     @PostMapping("/{id}/registerRenter")
     BaseResponse<Renter> registerRenter (
             @PathVariable int id,
@@ -124,6 +148,12 @@ public class AccountController implements BasicGetController<Account>
         return new BaseResponse<>(true, "Registrasi renter berhasil", newRenter);
     }
 
+    /***
+     *
+     * @param id
+     * @param amount
+     * @return
+     */
     @PostMapping("/{id}/topUp")
     BaseResponse<Double> topUp(
             @PathVariable int id,
@@ -141,6 +171,10 @@ public class AccountController implements BasicGetController<Account>
         return new BaseResponse<>(true, "Top up Berhasil", amount);
     }
 
+    /***
+     *
+     * @return
+     */
     @Override
     public JsonTable<Account> getJsonTable() {
         return accountTable;

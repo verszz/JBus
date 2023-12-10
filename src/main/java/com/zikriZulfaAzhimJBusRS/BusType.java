@@ -2,10 +2,9 @@ package com.zikriZulfaAzhimJBusRS;
 
 
 /**
- * Enumeration class BusType - write a description of the enum class here
+ * Enumeration class BusType
  *
- * @author (your name here)
- * @version (version number or date here)
+ * @author verszz
  */
 public enum BusType
 {

@@ -15,7 +15,10 @@ public class Account extends Serializable{
     public static final String REGEX_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d]{8,}$";
     public static final String REGEX_EMAIL = "^[a-zA-Z0-9]+@[a-zA-Z]+\\.[a-z]{2,}(\\.[a-zA-Z]+)*$";
 
-
+    /**
+     *
+     * @return
+     */
     public boolean validate() {
         Pattern password = Pattern.compile(this.REGEX_PASSWORD);
         Pattern email = Pattern.compile(this.REGEX_EMAIL);
@@ -26,6 +29,13 @@ public class Account extends Serializable{
 
         return password_found && email_found;
     }
+
+    /**
+     *
+     * @param name
+     * @param email
+     * @param password
+     */
     public Account(String name, String email, String password) {
         super();
         this.name = name;
@@ -35,10 +45,19 @@ public class Account extends Serializable{
         this.company = null;
     }
 
+    /**
+     * toString
+     * @return
+     */
     public String toString() {
         return "Name: " + this.name + "\nEmail: " + this.email + "\nPassword: " + this.password;
     }
 
+    /**
+     *
+     * @param amount
+     * @return
+     */
     public boolean topUp(double amount){
         if(amount < 0)
             return false;

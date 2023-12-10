@@ -1,5 +1,5 @@
 # JBus-Backend      
-This is the backend for JBus App. this program is written in Java language and using Intellij IDEA for the IDE.
+This is the backend for JBus App. this program is written in Java language and using Intellij IDEA for the IDE. For the frontend part of the JBus App, you can click [JBus-android](https://github.com/verszz/JBus-android)
 
 ## Content Table
 - [Overview](#overview)

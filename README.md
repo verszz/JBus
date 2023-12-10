@@ -7,7 +7,7 @@ This is the backend for JBus App. this program is written in Java language and u
 - [Features](#features)
 
 ## Overview
-This code is used as rhe backend of JBus App that can be installed in android phone. The backend is written in Java and uses IntelliJ IDEA. The database is written in simple JSON file. 
+This code is used as the backend of JBus App that can be installed in android phone. The backend is written in Java and uses IntelliJ IDEA. The database is written in simple JSON file. 
 This app can be use to make a booking of a bus seat, adding bus, paying a seat and any other feature. This project was created for the course "Object Oriented Programming" at the University of Indonesia.
 
 ## Usage
